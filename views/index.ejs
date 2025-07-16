@@ -1,16 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real-time Tracking App</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Real-time Tracking App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-    <div id="map"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet-src.min.js" integrity="sha512-3/WyQrhTdqSVmSifQS62akgtNBhZha2lS44TnoN9Jk3J01FvsKK4suVmz6t5FtccGb5iJw58GoFhBjPE5EPc8Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
-    <script src="/js/script.js"></script>
+
+<body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col transition-colors duration-300">
+  <header class="bg-white dark:bg-gray-800 shadow p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-center text-gray-900 dark:text-gray-100 w-full">📍 Real-time Tracking App</h1>
+    <button id="theme-toggle" class="absolute top-4 right-4 px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white rounded shadow text-sm">
+      Toggle Dark Mode
+    </button>
+  </header>
+  <div class="fixed top-20 right-4 bg-white dark:bg-gray-800 shadow rounded px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 z-50">
+    🧍 You (Your Marker is Red)
+  </div>
+  <div class="fixed bottom-4 right-4 bg-white dark:bg-gray-800 shadow-lg rounded p-4 w-64 text-sm z-50 max-h-60 overflow-y-auto border dark:border-gray-600">
+    <h2 class="font-semibold mb-2 text-gray-800 dark:text-gray-100">Active Users:</h2>
+    <ul id="user-list" class="text-gray-700 dark:text-gray-200 list-disc pl-5"></ul>
+  </div>
+  <main class="flex-1 p-4 flex justify-center items-center">
+    <div id="map" class="w-full max-w-6xl h-[80vh] rounded shadow border border-gray-300 dark:border-gray-600"></div>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet-src.min.js"></script>
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+  <script src="/js/script.js"></script>
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    toggle.onclick = () => {
+      document.documentElement.classList.toggle('dark');
+      document.documentElement.dataset.theme = 
+        document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    };
+  </script>
 </body>
 </html>

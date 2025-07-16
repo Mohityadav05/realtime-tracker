@@ -11,6 +11,7 @@ app.set('view engine','ejs');
 app.use(express.static(path.join(__dirname,"public")));
 
 io.on("connection",function(socket){
+    socket.emit("your-id", socket.id);
     socket.on("send-location",function(data){
         io.emit("recieve-location",{id: socket.id,...data});
     })
@@ -23,6 +24,7 @@ app.get('/',(req,res)=>{
     res.render("index");
 })
 
-server.listen(3000,()=>{
-    console.log("app is running");
-})
+const port = process.env.PORT || 3000;
+server.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
